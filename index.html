@@ -3,209 +3,36 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>STC7 - Formas de Pensamento e Critérios de Validação</title>
+<title>UFCD7 – Simulador de dinâmica de confronto: manifestantes e polícia</title>
 <style>
-   :root {
-       --bg: #f7f9fc;
-       --card: #ffffff;
-       --text: #222222;
-       --accent: #005a9c;
-       --border: #d9e2ef;
-       --shadow: 0 3px 10px rgba(0,0,0,.08);
-       --header-bg: #fffefe;
-       --banner-bg: #fdeee6;
-   }
-   *{
-       box-sizing: border-box;
-       margin: 0;
-       padding: 0;
-   }
-   body {
-       font-family: Arial, Helvetica, sans-serif;
-       background: var(--bg);
-       color: var(--text);
-    line-height: 1.6;
-}
-/* Cabeçalho Institucional Padrão */
-header.header-institucional {
-    background: var(--header-bg);
-    border-bottom: 1px solid var(--border);
-    padding: 1rem 1.5rem;
-    box-shadow: var(--shadow);
-}
-.header-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 1rem;
-}
-.header-logo {
-    height: 50px;
-    object-fit: contain;
-}
-.header-center {
-    text-align: center;
-    flex-grow: 1;
-}
-.header-center h1 {
-    font-size: 1.4rem;
-    color: #111;
-    margin-bottom: 0.3rem;
-}
-.header-info {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 0.5rem 1.5rem;
-    font-size: 0.9rem;
-    color: #333;
-}
-.banner-ufcd {
-    background-color: var(--banner-bg);
-    text-align: center;
-    padding: 0.5rem;
-    font-weight: bold;
-    color: #444;
-    border-radius: 4px;
-    margin-top: 0.5rem;
-    font-size: 0.95rem;
-}
-/* Estrutura do Conteúdo */
-.container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 1rem;
-}
-.actividade-title {
-    text-align: center;
-    background: #003b66;
-    color: white;
-    padding: 1.5rem 1rem;
-    border-radius: 8px;
-    margin: 1rem 0;
-}
-.actividade-title h2 {
-    color: white;
-    font-size: 1.8rem;
-    margin-bottom: 0.3rem;
-}
-section {
-    background: var(--card);
-    padding: 1.5rem;
-    margin: 1rem 0;
-    border-radius: 12px;
-    box-shadow: var(--shadow);
-}
-h2 {
-    color: var(--accent);
-    margin-bottom: 1rem;
-}
-h3 {
-    margin-top: 1rem;
-    color: #004080;
-}
-p{
-    margin-bottom: .8rem;
-}
-.definition {
-    background: #eef5fb;
-    padding: .8rem;
-    margin: .6rem 0;
-    border-left: 5px solid var(--accent);
-    border-radius: 6px;
-}
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
-}
-th, td {
-    border: 1px solid var(--border);
-    padding: .8rem;
-    text-align: left;
-}
-th {
-    background: #dfeffc;
-}
-.quiz {
-    background: #f5f9ff;
-    padding: 1rem;
-    border-radius: 8px;
-    margin-top: 1rem;
-}
-select {
-    padding: .5rem;
-    width: 100%;
-    max-width: 350px;
-    margin-top: .5rem;
-}
-button {
-    margin-top: 1rem;
-    padding: .7rem 1rem;
-    border: none;
-    background: var(--accent);
-    color: white;
-    border-radius: 6px;
-    cursor: pointer;
-}
-button:hover {
-    opacity: .9;
-}
-#resultado {
-    margin-top: 1rem;
-    font-weight: bold;
-}
-footer {
-    text-align: center;
-    padding: 2rem;
-    font-size: .9rem;
-    color: #555;
-}
-a{
-    color: #005a9c;
-}
-   @media(max-width: 700px) {
-       .header-top {
-           flex-direction: column;
-           text-align: center;
-       }
-       .header-info {
-           flex-direction: column;
-           gap: 0.2rem;
-       }
-       .actividade-title h2 {
-           font-size: 1.4rem;
-       }
-       table {
-           display: block;
-           overflow-x: auto;
-       }
-   }
+:root{--bg:#f7f9fc;--card:#fff;--text:#222;--accent:#005a9c;--border:#d9e2ef;--shadow:0 3px 10px rgba(0,0,0,.08)}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
 
 /* ===== Cabeçalho institucional padrão (EFA – ESMP) ===== */
 header.header-institucional,header.header-institucional *{box-sizing:border-box}
-header.header-institucional{flex:0 0 auto;background:#fffefe;color:#333;border-bottom:4px solid #003b66;padding:1rem 1.5rem;box-shadow:0 3px 10px rgba(0,0,0,.08);font-family:Arial,Helvetica,sans-serif;line-height:1.6;text-align:left}
+header.header-institucional{flex:0 0 auto;background:#fffefe;color:#333;border-bottom:1px solid #d9e2ef;padding:1rem 1.5rem;box-shadow:0 3px 10px rgba(0,0,0,.08);font-family:Arial,Helvetica,sans-serif;line-height:1.6;text-align:left}
 header.header-institucional .header-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin:0 0 1rem}
-header.header-institucional .header-logo{height:56px;width:auto;object-fit:contain}
+header.header-institucional .header-logo{height:50px;width:auto;object-fit:contain}
 header.header-institucional .header-center{text-align:center;flex-grow:1}
-header.header-institucional .header-center h1{font-size:clamp(1.5rem,3.4vw,2.2rem);font-weight:800;letter-spacing:-.01em;line-height:1.2;color:#0b1b2b;margin:0 0 .45rem;padding:0}
-header.header-institucional .header-info{display:flex;justify-content:space-around;align-items:center;flex-wrap:wrap;gap:.5rem 1.5rem;font-size:1rem;color:#222}
+header.header-institucional .header-center h1{font-size:1.4rem;color:#111;margin:0 0 .3rem;padding:0}
+header.header-institucional .header-info{display:flex;justify-content:space-around;align-items:center;flex-wrap:wrap;gap:.5rem 1.5rem;font-size:.9rem;color:#333}
 header.header-institucional .header-emblema{height:40px;width:auto;border-radius:4px}
-header.header-institucional .header-rule{border:0;border-top:2px solid #000;margin:.9rem 0 0;height:0}
-header.header-institucional .banner-ufcd{background-color:#fdeee6;text-align:center;padding:.5rem;font-weight:bold;color:#444;border-radius:4px;margin:.9rem 1.2rem 0;font-size:1.05rem}
-@media(max-width:700px){header.header-institucional{padding:.6rem .8rem}header.header-institucional .header-top{flex-direction:row;justify-content:center;margin-bottom:.5rem}header.header-institucional .header-logo{height:34px}header.header-institucional .header-info{flex-direction:column;gap:.2rem;text-align:center}header.header-institucional .header-center h1{font-size:1.4rem}header.header-institucional .banner-ufcd{margin:.7rem 0 0}}
+header.header-institucional .banner-ufcd{background-color:#fdeee6;text-align:center;padding:.5rem;font-weight:bold;color:#444;border-radius:4px;margin:.5rem 0 0;font-size:.95rem}
+@media(max-width:700px){header.header-institucional{padding:.6rem .8rem}header.header-institucional .header-top{flex-direction:row;justify-content:center;margin-bottom:.5rem}header.header-institucional .header-logo{height:34px}header.header-institucional .header-info{flex-direction:column;gap:.2rem;text-align:center}header.header-institucional .header-center h1{font-size:1.15rem}}
 
-
-/* ===== Hierarquia: cabeçalho (2,2rem) > título da atividade (1,45rem) > secções (1,15rem) > texto (1rem) ===== */
-.actividade-title{text-align:left;background:#fff;color:#003b66;border:1px solid #d9e2ef;border-left:6px solid #003b66;padding:1rem 1.25rem;border-radius:8px;margin:1rem 0;box-shadow:var(--shadow)}
-.actividade-title h2{color:#003b66;font-size:1.45rem;line-height:1.25;margin:0 0 .15rem}
-.actividade-title p{color:#555;font-size:.95rem;margin:0}
-section{padding:1.1rem 1.4rem;box-shadow:none;border:1px solid #e3eaf3;border-radius:10px}
-section h2{font-size:1.15rem;font-weight:700;color:#2f5f8f;margin:0 0 .7rem}
-section h3{font-size:1rem;font-weight:700;color:#3d6a96}
-@media(max-width:700px){.actividade-title h2{font-size:1.3rem}section h2{font-size:1.05rem}section{padding:1rem}}
+.container{max-width:1200px;margin:auto;padding:1rem}
+.actividade-title{text-align:center;background:#003b66;color:#fff;padding:1.5rem 1rem;border-radius:8px;margin:1rem 0}
+.actividade-title h2{color:#fff;font-size:1.8rem;margin:0 0 .3rem}
+section{background:var(--card);padding:1.5rem;margin:1rem 0;border-radius:12px;box-shadow:var(--shadow)}
+h2{color:var(--accent);margin:0 0 1rem} h3{margin-top:1rem;color:#004080} p{margin:0 0 .8rem}
+.definition{background:#eef5fb;padding:.8rem;margin:.6rem 0;border-left:5px solid var(--accent);border-radius:6px}
+table{width:100%;border-collapse:collapse;margin-top:1rem} th,td{border:1px solid var(--border);padding:.8rem;text-align:left} th{background:#dfeffc}
+button{margin-top:1rem;padding:.7rem 1rem;border:none;background:var(--accent);color:#fff;border-radius:6px;cursor:pointer}
+footer{text-align:center;padding:2rem;font-size:.9rem;color:#555}
+.simulador{width:100%;height:92vh;min-height:640px;border:1px solid var(--border);border-radius:8px;background:#fff;display:block}
+.nota{font-size:.9rem;color:#555}
+@media(max-width:700px){.actividade-title h2{font-size:1.4rem}table{display:block;overflow-x:auto}}
 </style>
 </head>
 <body>
@@ -225,161 +52,25 @@ section h3{font-size:1rem;font-weight:700;color:#3d6a96}
    <span><strong>Professor:</strong> Luís Alves da Costa</span>
   </div>
  </div>
- <hr class="header-rule">
  <div class="banner-ufcd">UFCD7 – Fundamentos</div>
 </header>
 
-<!-- CONTEÚDO DA ATIVIDADE -->
-<div class="container">
-<div class="actividade-title">
-<h2>STC7 - Formas de Pensamento e Critérios de Validação</h2>
-<p>Curso EFA Sociedade, Tecnologia e Ciência</p>
-</div>
-<section>
-<h2>Introdução</h2>
-<p>
-As sociedades humanas desenvolveram diferentes formas de
-compreender o mundo. Estas formas de pensamento
-distinguem-se sobretudo pelos critérios usados para considerar uma
-afirmação válida, plausível ou verdadeira.
-</p>
-<p>
-A literacia científica pressupõe a capacidade de distinguir entre
-conhecimento científico, reflexão filosófica, crença
-religiosa, pensamento mágico e pseudociência, compreendendo os
-critérios específicos que cada domínio utiliza.
-</p>
-</section>
-<section>
-<h2>1. Pensamento Científico</h2>
-<p><strong>Critério de validade:</strong> evidência empírica,
-experimentação, teste e possibilidade de refutação.</p>
-<div class="definition">
-<strong>Karl Popper:</strong> uma teoria científica deve poder ser
-submetida a testes capazes de a refutar.
-</div>
-<div class="definition">
-<strong>National Academy of Sciences:</strong> a ciência é uma forma
-de conhecer baseada em observação, evidência e explicações testáveis sobre
-fenómenos naturais.
-</div>
-<div class="definition">
-<strong>Método científico:</strong> produção de conhecimento através
-da observação, formulação de hipóteses, experimentação e validação
-independente.
-</div>
-</section>
-<section>
-<h2>2. Pensamento Filosófico</h2>
-<p><strong>Critério de validade:</strong> coerência lógica, análise
-conceptual e argumentação racional.</p>
-<div class="definition">
-<strong>Bertrand Russell:</strong> a filosofia examina criticamente
-pressupostos e conceitos fundamentais.
-</div>
-<div class="definition">
-<strong>Simon Blackburn:</strong> a filosofia procura compreender
-questões fundamentais através da razão e da argumentação.
-</div>
-<div class="definition">
-<strong>Stanford Encyclopedia of Philosophy:</strong> investigação
-racional de problemas relativos ao conhecimento, realidade, ética e significado.
-</div>
-</section>
-<section>
-<h2>3. Pensamento Religioso ou Teológico</h2>
-<p><strong>Critério de validade:</strong> fé, revelação, tradição e
-autoridade religiosa.</p>
-<div class="definition">
-<strong>Encyclopaedia Britannica:</strong> religião é um conjunto de
-crenças e práticas relacionadas com o sagrado ou o transcendente.
-</div>
-<div class="definition">
-<strong>Paul Tillich:</strong> a religião exprime a preocupação última do
-ser humano perante a existência.
-</div>
-<div class="definition">
-<strong>Teologia clássica:</strong> procura compreender
-sistematicamente conteúdos de fé transmitidos por uma tradição religiosa.
-</div>
-</section>
-<section>
-<h2>4. Pensamento Mágico</h2>
-<p><strong>Critério de validade:</strong> associação simbólica,
-causalidade sobrenatural ou forças ocultas.</p>
-<div class="definition">
-<strong>James George Frazer:</strong> o pensamento mágico assenta na
-crença de que certos atos produzem efeitos sobrenaturais.
-</div>
-<div class="definition">
-<strong>Psicologia cognitiva:</strong> tendência para estabelecer
-relações causais sem evidência objetiva suficiente.
-</div>
-<div class="definition">
-<strong>Antropologia cultural:</strong> interpretação do mundo através
-de poderes invisíveis atuando diretamente sobre a realidade.
-</div>
-</section>
-<section>
-<h2>5. Pensamento Pseudocientífico</h2>
-<p><strong>Critério aparente:</strong> utiliza linguagem científica sem
-respeitar os procedimentos da ciência.</p>
-<div class="definition">
-<strong>Michael Shermer:</strong> pseudociência consiste na
-apresentação de afirmações como científicas sem observarem os métodos
-científicos adequados.
-</div>
-<div class="definition">
-<strong>Carl Sagan:</strong> caracteriza-se por evitar o escrutínio crítico
-e a testabilidade.
-</div>
-<div class="definition">
-<strong>Encyclopaedia Britannica:</strong> conjunto de afirmações ou
-sistemas que aparentam ser científicos mas carecem de fundamentação empírica
-robusta.
-</div>
-</section>
-<section>
-<h2>Quadro Comparativo</h2>
-<table>
-<thead>
-<tr>
-<th>Categoria</th>
-<th>Critério Principal</th>
-<th>Pergunta Típica</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Científico</td>
-<td>Evidência, teste e refutação</td>
-<td>Como sabemos que isto é verdadeiro?</td>
-</tr>
-<tr>
-<td>Filosófico</td>
-<td>Coerência lógica e argumentação</td>
-<td>O argumento é racionalmente sólido?</td>
-</tr>
-<tr>
-<td>Religioso/Teológico</td>
-<td>Fé, revelação e tradição</td>
-<td>O que ensina a tradição religiosa?</td>
-</tr>
-<tr>
-<td>Mágico</td>
-<td>Ação sobrenatural direta</td>
-<td>Que forças ocultas intervêm?</td>
-</tr>
-<tr>
-<td>Pseudocientífico</td>
-<td>Aparência de ciência</td>
-<td>Parece científico, mas foi realmente testado?</td>
-</tr>
-</tbody>
-</table>
-</section>
-</div>
+<main class="container">
+ <div class="actividade-title">
+  <h2>Simulador de dinâmica de confronto: manifestantes e polícia</h2>
+  <p>Curso EFA Sociedade, Tecnologia e Ciência</p>
+ </div>
+ <section>
+  <h2>Introdução</h2>
+  <p>Este simulador explora como uma concentração pública pode escalar ou acalmar em função das decisões de cada lado. Parte de condições iniciais (tema da manifestação, gatilho, composição da multidão, doutrina policial) e segue o percurso numa estrada em perspetiva, onde cada zona corresponde a um nível de tensão, da calma à violência letal.</p>
+  <div class="definition">É um modelo ilustrativo e simplificado, com valores não calibrados com dados reais. Serve para discutir mecanismos (escalada recíproca, legitimidade, adesão da multidão, efeito de retorno, cedência política), não para prever acontecimentos concretos.</div>
+ </section>
+ <section>
+  <h2>Simulador</h2>
+  <p class="nota">Escolha o lado e o tema, defina as condições iniciais e decida em cada momento. A barra por cima do campo permite rever etapas anteriores e fazer zoom. <a href="simulador.html">Abrir em ecrã inteiro</a>.</p>
+  <iframe class="simulador" src="simulador.html" title="Simulador de dinâmica de confronto" loading="lazy"></iframe>
+ </section>
+</main>
 <footer>Escola Secundária Marquês de Pombal · EFA – STC · UFCD7</footer>
-
 </body>
 </html>
