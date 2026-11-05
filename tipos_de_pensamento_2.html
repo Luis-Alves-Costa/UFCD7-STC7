@@ -77,6 +77,11 @@ header.header-institucional .header-top>.header-logo:nth-child(3){justify-self:e
 /* o cabeçalho mantém a sua própria tipografia, independente da página */
 header.header-institucional .header-center h1{font-family:Arial,Helvetica,sans-serif}
 footer{text-align:center;padding:1.5rem 1rem 2rem;font-size:.9rem;color:var(--mute)}
+@media (prefers-color-scheme:light){:root{--em:#a63d6b}}:root{--em:#a63d6b}@media (prefers-color-scheme:dark){:root{--em:#f0a0c4}}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.chip{font:inherit;min-height:44px;padding:6px 14px;border-radius:22px;border:1.5px solid var(--bd);background:var(--card);color:var(--ink);cursor:pointer}
+#w1,#gr{width:100%;font:16px system-ui,sans-serif;color:var(--ink);background:var(--card);border:1.5px solid var(--bd);border-radius:10px;padding:10px;margin:4px 0 12px}
+.ok{background:var(--card);border-left:5px solid var(--re);padding:10px 12px;border-radius:6px;margin:0 0 14px}
+#res,#rb{display:none}#res.on,#rb.on{display:block}#ro{min-height:140px}
 </style>
 </head>
 <body>
@@ -113,10 +118,18 @@ footer{text-align:center;padding:1.5rem 1rem 2rem;font-size:.9rem;color:var(--mu
 <button class="go" id="go">Analisar a minha frase</button>
 </div>
 <p class="note">A análise procura palavras e expressões na frase. Não “compreende” o que escreveste e pode enganar-se. Serve para começar a conversa na aula, não para dar a última palavra.</p>
+<div id="res"><h2>3. O meu resumo</h2>
+<p class="lead" id="rc"></p>
+<label for="gr">Número do grupo</label><input id="gr" maxlength="20" inputmode="numeric">
+<button class="go" id="rg">Gerar o meu resumo</button>
+<div id="rb"><textarea id="ro" readonly aria-label="Resumo"></textarea>
+<div class="row"><button id="cp">Copiar</button><button class="s" id="dl">Descarregar a página alterada</button></div>
+<p class="note" id="rm">Cola o texto copiado na tarefa do Classroom. O botão de descarregar serve para quem está no computador.</p></div></div>
 </div>
 
 <div id="ov" role="dialog" aria-modal="true" aria-labelledby="bt"><div class="rs" id="rs"></div></div>
 
+<script id="dic-embutido" type="application/json">{"id":"a1","e":[]}</script>
 <script>
 var SIT=[
 {l:"Fazer um exame",q:"Antes de entrares na sala de exame, o que fazes?",e:"Ex.: Levo sempre a caneta da sorte."},
@@ -165,6 +178,36 @@ var e=r[1];while(e<t.length&&/[A-Za-zÀ-ÿ]/.test(t.charAt(e)))e++;
 o+=esc(t.slice(pos,r[0]))+'<mark style="--c:'+CAT[r[2]].c+'">'+esc(t.slice(r[0],e))+"</mark>";pos=e});
 return o+esc(t.slice(pos))}
 
+LX.ma.push(["\\b(olho\\s+gordo|mal\\s+de\\s+olho)",3]);
+LX.re.push(["\\b(encomendei\\s+me|encomendar\\s+me|benzer|santinho)",3]);
+LX.ps.push(["\\b(vidente|cartomante|incenso|visualizar\\s+o\\s+sucesso)",3]);
+LX.ci.push(["\\b(fiz\\s+contas|fazer\\s+contas|verifiquei|pedi\\s+informacao|fiz\\s+uma\\s+lista|fiz\\s+um\\s+plano|plano\\s+b|fiz\\s+um\\s+teste|vi\\s+o\\s+horario)",3]);
+var EM={
+an:{n:"ansiedade",p:"nervos|nervinhos|ansios|ansiedade|borboletas na barriga|no no estomago|no no peito|estomago as voltas|coracao (a mil|aos saltos|acelerado|a bater|ao pe da boca)|palpitac|maos? (a suar|suadas)|suor frio|suar frio|pernas a tremer|roer as unhas|roi as unhas|nao (consigo|conseguia) parar quiet|noite em branco|cabeca a mil|stress|tens[oa]|aflit|inquiet|apreensiv|preocupad|atacado dos nervos|ataque de nervos|a beira de um ataque"},
+me:{n:"medo",p:"medo|receio|assustad|aterrad|apavorad|pavor|panico|credo na boca|pele de galinha|arrepi|gelar o sangue|gelou.me o sangue|frio na espinha|tremer de medo|tremi de medo|a tremer"},
+ag:{n:"angústia",p:"angusti|agonia|agoniad|aperto no peito|peito apertado|aperto no coracao|coracao apertado|peso no peito|peso nos ombros|nao me sai da cabeca|desespero|desesperad|sufoc|falta de ar|sem saida|nao vejo saida|nas aranhas|de rastos|no na garganta"},
+ex:{n:"expectativa",p:"expectativa|esperanca|espero que|mal posso esperar|contar os dias|contar os minutos|ver no que da|ver no que vai dar|esperar para ver|curios|ansia de saber|logo se ve|de olhos postos"},
+ra:{n:"raiva",p:"raiva|zangad|furios|irritad|irrita.me|arrelia|arreliad|enervad|enerva.me|chateado|chateada|chateou|revoltad|revolta|odio|odeio|danado|farto|farta|fartei|passei.me|passou.me|passar.me|passado dos carretos|fora de mim|fora de si|a ferver|sangue a ferver|ferver em pouca agua|subir.me a mostarda|subiu.me a mostarda|perder a cabeca|perdi a cabeca|perdi as estribeiras|perder as estribeiras|saltou.me a tampa|tirar.me do serio|tirou.me do serio|fumo pelas orelhas|ate aos cabelos"},
+co:{n:"confiança",p:"confian|seguro de mim|segura de mim|tenho a certeza|tranquil|calmo|calma|sereno|serenidade|sangue frio|cabeca fria|descontraid|a vontade|sem receio|sem medo|vai correr (tudo )?bem|vai ficar tudo bem|acredito em mim|sei o que estou a fazer|estou (bem )?preparad|dar conta do recado|dou conta do recado|nada me abala"},
+tr:{n:"tristeza",p:"triste|tristeza|desanim|abatid|em baixo|moral em baixo|coracao partido|coracao pesado|deprimid|melancoli|saudade|chorei|chorar|lagrimas|vontade de chorar"},
+al:{n:"alívio",p:"alivi|tirar um peso|tirei um peso|tirou.me um peso|saiu.me um peso|respirei de alivio|suspirei|ja passou|livrei.me|menos mal|ainda bem|saiu.me uma pedra"},
+fe:{n:"alegria",p:"feliz|felicidade|contente|alegr|entusiasm|animad|radiante|nas nuvens|pular de alegria|nao cabia em mim|nao cabendo em mim|de bem com a vida"}};
+function emo(t){var n=norm(t),sc={},rg=[],tot=0;
+Object.keys(EM).forEach(function(k){var re=new RegExp("\\b("+EM[k].p+")","g"),m;
+while((m=re.exec(n))){if(!m[0].length){re.lastIndex++;continue}
+var pre=n.slice(Math.max(0,m.index-40),m.index).split(/[,.;:!?]|\b(?:mas|e|porque|pois|que)\b/).pop().trim().split(/\s+/).slice(-3).join(" ");
+if(/\b(nao|nunca|nem|sem|jamais)\b/.test(pre))continue;
+sc[k]=(sc[k]||0)+1;tot++;rg.push([m.index,m.index+m[0].length,"em"])}});
+var ks=Object.keys(sc).sort(function(a,b){return sc[b]-sc[a]}).slice(0,3);
+return{ks:ks,rg:rg,n:tot,h:tot?'<div class="q" style="--c:var(--em)"><b>Emoções que aparecem:</b> '+ks.map(function(k){return EM[k].n}).join(", ")+'.<br>Sentir isto é normal e não é um tipo de pensamento. O que classificamos é o que fazes para lidar com isso.</div>':""}}
+CAT.em={n:"Emoção",c:"var(--em)"};
+var PFX="ativ-dic-",BASE=[],ATIV=[];
+function lw(s){return norm(s).replace(/[^a-z0-9]/g,"")}
+function ativa(e){if(e&&e.w&&LX[e.k])LX[e.k].push(["\\b"+e.w,2])}
+(function(){try{var d=JSON.parse(document.getElementById("dic-embutido").textContent);PFX+=lw(d.id||"a1")+"-";BASE=(d.e||[]).filter(function(e){return e&&typeof e.w==="string"&&LX[e.k]})}catch(x){PFX+="a1-"}
+BASE.forEach(ativa);
+try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k.indexOf(PFX)===0){var e=JSON.parse(localStorage.getItem(k));if(e&&typeof e.w==="string"&&LX[e.k]){e.w=lw(e.w);e.t=String(e.t||"");e.o=String(e.o||e.w);ATIV.push(e);ativa(e)}}}}catch(x){}})();
+function guarda(o,t,k){var e={w:lw(o),o:o.toLowerCase(),t:t.replace(/[→\[\]]/g,"").slice(0,140),k:k};ATIV=ATIV.filter(function(x){return x.w!==e.w});ATIV.push(e);ativa(e);try{localStorage.setItem(PFX+e.w,JSON.stringify(e))}catch(x){}atualizaRes()}
 var cur=null,sel=-1;
 var $=function(i){return document.getElementById(i)};
 SIT.forEach(function(s,i){var b=document.createElement("button");b.className="sit";b.textContent=s.l;b.setAttribute("aria-pressed","false");
@@ -189,27 +232,64 @@ function texto(k){var c=CAT[k];
 return '<div class="tx" style="--c:'+c.c+'"><h3>O que é</h3><p>'+c.d+'</p><h3>Como se reconhece</h3><p>'+c.r+'</p><div class="q"><b>Para pensar:</b> '+c.p+'</div></div>'}
 
 function mostra(manual){
-var a=cur.a,tot=cur.tot,o="",sit=SIT[sel].l;
+var a=cur.a,tot=cur.tot,o="",sit=SIT[sel].l,E=emo(cur.t);
 var ks=["ci","ma","ps","re"].sort(function(x,y){return a.sc[y]-a.sc[x]});
 var top=ks[0],sec=ks[1];
-var frase='<div class="fr">“'+marca(cur.t,a.rg)+'”</div>';
+var frase='<div class="fr">“'+marca(cur.t,a.rg.concat(E.rg))+'”</div>';
 if(manual){o+='<div style="--c:'+CAT[manual].c+'"><span class="badge" id="bt">'+CAT[manual].n+'</span></div><p class="sub">Escolha tua · '+esc(sit)+'</p>'+frase+texto(manual)}
 else if(tot===0){
-o+='<span class="badge" id="bt" style="--c:var(--ink);color:var(--ink)">Sem pistas suficientes</span><p class="sub">'+esc(sit)+'</p>'+frase+'<p style="margin-top:14px">Não encontrei palavras que me permitam classificar esta frase. Diz tu: em que tipo de pensamento a encaixarias?</p><div class="pick">'+["ci","ma","ps","re"].map(function(k){return'<button style="--c:'+CAT[k].c+'" data-k="'+k+'">'+CAT[k].n.replace("Pensamento ","")+'</button>'}).join("")+'</div>'}
+if(E.n)o+='<span class="badge" id="bt" style="--c:var(--em);color:var(--em)">Mais emoção do que ação</span><p class="sub">'+esc(sit)+'</p>'+frase+'<p style="margin-top:14px">A tua frase mostra o que sentes, mas não diz o que fazes para lidar com isso. Se quiseres, escreve outra frase com o que fizeste a seguir.</p>';else o+='<span class="badge" id="bt" style="--c:var(--ink);color:var(--ink)">Sem pistas suficientes</span><p class="sub">'+esc(sit)+'</p>'+frase+'<p style="margin-top:14px">Não encontrei palavras que me permitam classificar esta frase. Diz tu: em que tipo de pensamento a encaixarias?</p><div class="pick">'+["ci","ma","ps","re"].map(function(k){return'<button style="--c:'+CAT[k].c+'" data-k="'+k+'">'+CAT[k].n.replace("Pensamento ","")+'</button>'}).join("")+'</div>'}
 else{
 var mix=a.sc[sec]>=0.6*a.sc[top]&&a.sc[sec]>0,fraco=a.sc[top]<2;
 o+='<div style="--c:'+CAT[top].c+'"><span class="badge" id="bt">'+CAT[top].n+'</span></div><p class="sub">'+esc(sit)+(fraco?" · classificação pouco segura":"")+'</p>'+frase+barras(a,tot);
 if(mix)o+='<p style="margin:0 0 6px"><b>Frase mista:</b> há também sinais de '+CAT[sec].n.toLowerCase()+'. É normal. Muita gente combina várias formas de pensar na mesma situação, como estudar e cruzar os dedos.</p>';
 o+=texto(top);
 if(mix)o+='<hr style="border:0;border-top:1px solid var(--bd);margin:20px 0 0">'+'<div style="--c:'+CAT[sec].c+'"><h3 style="margin:14px 0 0;color:var(--c)">'+CAT[sec].n+'</h3></div>'+texto(sec)}
-o+='<div class="row"><button id="nv">Escrever outra frase</button><button class="s" id="fc">Fechar</button></div>';
+o+=E.h;o+='<div class="row"><button id="nv">Escrever outra frase</button><button class="s" id="fc">Fechar</button><button class="s" id="en">Ensinar uma palavra</button></div>';
 $("rs").innerHTML=o;$("ov").className="on";$("ov").scrollTop=0;document.body.style.overflow="hidden";
 $("nv").onclick=function(){fecha();$("tx").value="";$("tx").focus()};
-$("fc").onclick=fecha;
+$("fc").onclick=fecha;$("en").onclick=ensina;
 [].forEach.call($("rs").querySelectorAll(".pick button"),function(b){b.onclick=function(){mostra(b.getAttribute("data-k"))}});
 var h=$("bt");if(h){h.setAttribute("tabindex","-1");h.focus()}}
 function fecha(){$("ov").className="";document.body.style.overflow=""}
 document.addEventListener("keydown",function(e){if(e.key==="Escape")fecha()});
+
+function atualizaRes(){var n=ATIV.length;$("res").className=n?"on":"";$("rc").textContent=n+(n===1?" palavra ensinada à página.":" palavras ensinadas à página.")}
+function catn(k){var n=CAT[k].n.replace("Pensamento ","");return n.charAt(0).toUpperCase()+n.slice(1)}
+function linhas(){var g=$("gr").value.trim().replace(/\s+/g," ");return "Grupo "+(g||"?")+"\n"+ATIV.map(function(e){return e.o+" → "+e.t+" ["+catn(e.k)+"]"}).join("\n")}
+$("rg").onclick=function(){$("ro").value=linhas();$("rb").className="on"};
+$("cp").onclick=function(){var o=$("ro"),m=$("rm");function f(){o.select();try{m.textContent=document.execCommand("copy")?"Copiado. Cola na tarefa do Classroom.":"Seleciona o texto e copia à mão."}catch(x){m.textContent="Seleciona o texto e copia à mão."}}
+if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(o.value).then(function(){m.textContent="Copiado. Cola na tarefa do Classroom."},f);else f()};
+$("dl").onclick=function(){var c=document.documentElement.cloneNode(true),q=function(x){return c.querySelector(x)};
+q("#sits").innerHTML="";q("#rs").innerHTML="";q("#ov").className="";q("#esc").className="";q("#res").className="";q("#rb").className="";
+var all=BASE.concat(ATIV).map(function(e){return{w:e.w,k:e.k}});
+q("#dic-embutido").textContent=JSON.stringify({id:PFX.slice(9,-1),e:all}).replace(/</g,"\\u003c");
+var b=new Blob(["<!DOCTYPE html>\n"+c.outerHTML],{type:"text/html"}),a=document.createElement("a"),g=lw($("gr").value);
+a.href=URL.createObjectURL(b);a.download="tipos_de_pensamento_grupo"+g+".html";document.body.appendChild(a);a.click();a.remove()};
+var STOP="antes depois sempre quando entao porque muito mais para como fazer faco fiz fico estou tenho tinha pelo pela pelos pelas numa isso isto esse essa este esta aquele aquela ainda tudo todo toda onde mesmo sobre entre cada tambem".split(" ");
+function cand(){var t=cur.t,n=norm(t),re=/[A-Za-zÀ-ÿ]+/g,m,o=[],v={};
+while((m=re.exec(t))){var s=m.index,e=s+m[0].length,nw=n.slice(s,e);
+if(m[0].length<4||STOP.indexOf(nw)>-1||v[nw]||cur.a.rg.some(function(r){return r[0]<e&&r[1]>s}))continue;
+v[nw]=1;o.push(m[0].toLowerCase())}return o}
+function ens(h){$("rs").innerHTML=h;$("ov").scrollTop=0}
+function ensina(){var c=cand().map(function(w){return'<button class="chip" data-w="'+esc(w)+'">'+esc(w)+'</button>'}).join("");
+ens('<h2 style="margin-top:0">Ensinar uma palavra à página</h2><div class="fr">“'+esc(cur.t)+'”</div><p>1. Qual foi a palavra que a página não reconheceu?'+(c?" Toca nela ou escreve-a.":" Escreve-a.")+'</p><div class="chips">'+c+'</div><input id="w1" maxlength="30" autocapitalize="none" aria-label="Palavra"><p>2. Escreve a frase outra vez, com palavras mais simples e mais conhecidas.</p><textarea id="t2" maxlength="200" aria-label="Frase mais simples"></textarea><p class="err" id="e2" role="alert"></p><div class="row"><button id="e3">Continuar</button><button class="s" id="e4">Voltar</button></div>');
+[].forEach.call($("rs").querySelectorAll(".chip"),function(b){b.onclick=function(){$("w1").value=b.getAttribute("data-w")}});
+$("e4").onclick=function(){mostra()};
+$("e3").onclick=function(){var w=$("w1").value.trim(),t=$("t2").value.trim().replace(/\s+/g," ");
+if(!lw(w)||/\s/.test(w)){$("e2").textContent="No passo 1, escreve uma só palavra.";return}
+if(t.split(" ").length<3){$("e2").textContent="No passo 2, escreve a frase completa (pelo menos três palavras).";return}
+var a=analisa(t),ks=Object.keys(a.sc).sort(function(x,y){return a.sc[y]-a.sc[x]});
+pergunta(w,t,a.sc[ks[0]]>0?ks[0]:null)}}
+function escolhe(w,t){ens('<h2 style="margin-top:0">Em que categoria encaixa “'+esc(w)+'”?</h2><div class="fr">“'+esc(t)+'”</div><div class="pick">'+["ci","ma","ps","re"].map(function(x){return'<button style="--c:'+CAT[x].c+'" data-k="'+x+'">'+catn(x)+'</button>'}).join("")+'</div><div class="row"><button class="s" id="e4">Voltar</button></div>');
+$("e4").onclick=ensina;
+[].forEach.call($("rs").querySelectorAll(".pick button"),function(b){b.onclick=function(){fim(w,t,b.getAttribute("data-k"))}})}
+function pergunta(w,t,k){if(!k){escolhe(w,t);return}
+ens('<h2 style="margin-top:0">Quase pronto</h2><div class="fr">“'+esc(t)+'”</div><p>Queres dizer “<b>'+esc(w)+'</b>”, da categoria <b>'+catn(k).toLowerCase()+'</b>?</p><div class="row"><button id="sm">Sim</button><button class="s" id="nao">Não</button></div>');
+$("sm").onclick=function(){fim(w,t,k)};$("nao").onclick=function(){escolhe(w,t)}}
+function fim(w,t,k){guarda(w,t,k);var a=analisa(cur.t);cur.a=a;cur.tot=Object.keys(a.sc).reduce(function(x,y){return x+a.sc[y]},0);mostra();
+$("rs").insertAdjacentHTML("afterbegin",'<p class="ok">A página aprendeu “'+esc(w)+'” como '+catn(k).toLowerCase()+'. Já conta nesta página.</p>')}
+atualizaRes();
 </script>
 <footer>Escola Secundária Marquês de Pombal · EFA – STC · UFCD7 – Saberes Fundamentais</footer>
 </body>
