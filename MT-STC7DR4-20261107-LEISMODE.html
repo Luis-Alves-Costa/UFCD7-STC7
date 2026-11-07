@@ -175,13 +175,14 @@ function end(){
   <div class="card noprint"><h2>Entregar ao professor</h2>
   <div id="st" class="mu" style="margin-bottom:10px"></div>
   <button class="btn sec" style="width:100%;margin-bottom:10px" id="gc">Entregar também no Google Classroom</button>
-  <button class="btn sec" style="width:100%;margin-bottom:10px" id="em">Enviar ao professor por email</button>
+  <button class="btn sec" style="width:100%;margin-bottom:10px" id="em">Enviar ao professor pelo Gmail da escola</button>
+  <p class="mu" style="margin:-4px 0 12px;text-align:center"><a href="#" id="em2">Usar outra aplicação de email</a></p>
   <div class="nav">${ENVIO_URL?'<button class="btn sec" id="rs">Reenviar</button>':''}<button class="btn sec" id="cp">Copiar resultado</button></div></div>
   <div class="card"><h2>Correção</h2>${T.map((q,n)=>`<div class="rv ${q.ok?"ok":"ko"}"><div class="mu">${n+1}. ${esc(q.top)} · ${fm(pts(q))}/${fm(q.p)} pts</div><div>${q.t}</div>
   <div>Tentativas: ${q.tries.length?q.tries.map(k=>q.o[k]).join(" → "):"(sem resposta)"}</div><div>Resposta certa: <b class="ok">${q.c}</b></div>${!q.ok&&q.x[0]?`<div class="mu">${q.x[0]}</div>`:""}</div>`).join("")}</div>
   <div class="noprint"><button class="btn sec" style="width:100%" id="hm">Início</button></div>`;
   if(document.getElementById("rs"))document.getElementById("rs").onclick=send;
-  document.getElementById("em").onclick=mail;document.getElementById("gc").onclick=classroom;
+  document.getElementById("em").onclick=()=>mail();document.getElementById("em2").onclick=e=>{e.preventDefault();mail(1)};document.getElementById("gc").onclick=classroom;
   document.getElementById("pr").onclick=()=>print();
   document.getElementById("cp").onclick=async()=>{const t=resumo();try{await navigator.clipboard.writeText(t);document.getElementById("st").innerHTML='<b class="ok">Resultado copiado.</b>'}catch(e){prompt("Copia o resultado:",t)}};
   document.getElementById("hm").onclick=()=>{home();scrollTo(0,0)};
@@ -214,7 +215,10 @@ async function classroom(){
   st.innerHTML='<b class="ok">Ligação do comprovativo copiada.</b> No Classroom, abre o trabalho, carrega em «Adicionar › Link», cola e carrega em <b>Entregar</b>.';
   window.open("https://classroom.google.com/share?url="+encodeURIComponent(u),"_blank");
 }
-function mail(){location.href=`mailto:${PROF_EMAIL}?subject=${encodeURIComponent(D.titulo+" – "+P.nome+" – Percurso "+P.percurso)}&body=${encodeURIComponent(resumo())}`}
+function mail(alt){const s=encodeURIComponent(D.titulo+" – "+P.nome+" – Percurso "+P.percurso),b=encodeURIComponent(resumo());
+  if(alt){location.href=`mailto:${PROF_EMAIL}?subject=${s}&body=${b}`;return}
+  window.open(`https://mail.google.com/mail/?authuser=${encodeURIComponent(P.email)}&view=cm&fs=1&to=${encodeURIComponent(PROF_EMAIL)}&su=${s}&body=${b}`,"_blank");
+  document.getElementById("st").innerHTML='<b class="ok">Abriu o Gmail da escola com a mensagem pronta.</b> Confirma e carrega em <b>Enviar</b>.';}
 async function send(){
   const st=document.getElementById("st");
   if(!ENVIO_URL){st.innerHTML='Mostra esta classificação ao professor ou usa «Entregar no Google Classroom».';return}
