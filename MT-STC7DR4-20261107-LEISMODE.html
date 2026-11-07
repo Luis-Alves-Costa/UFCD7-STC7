@@ -80,7 +80,21 @@ header.header-institucional .banner-ufcd{background-color:#fdeee6;text-align:cen
 .efa-wrap{max-width:640px;margin:0 auto;padding:0 16px}
 .actividade-title{text-align:center;background:#003b66;color:#fff;padding:1.1rem 1rem;border-radius:8px;margin:1rem 0 .4rem}
 .actividade-title h2{color:#fff;font-size:1.45rem;margin:0 0 .3rem}.actividade-title p{margin:0;opacity:.9}
-main .card>h1{display:none}</style>
+main .card>h1{display:none}/* ===== Cabeçalho EFA Plástico (ESMP) — logótipos sempre à esquerda, ao centro e à direita, em qualquer ecrã ===== */
+header.header-institucional,header.header-institucional *{box-sizing:border-box}
+header.header-institucional{flex:0 0 auto;background:#fffefe;color:#333;border-bottom:1px solid #d9e2ef;padding:clamp(.5rem,2.2vw,1rem) clamp(.6rem,3vw,1.5rem);box-shadow:0 3px 10px rgba(0,0,0,.08);font-family:Arial,Helvetica,sans-serif;line-height:1.5;text-align:left}
+header.header-institucional .header-top{display:grid!important;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:clamp(.35rem,2vw,1rem);margin:0 0 clamp(.4rem,1.6vw,1rem);flex-direction:initial;justify-content:initial}
+header.header-institucional .header-top>.header-logo{display:block;height:clamp(24px,8vw,56px);width:auto;max-width:100%;min-width:0;object-fit:contain}
+header.header-institucional .header-top>.header-logo:nth-child(1){justify-self:start;object-position:left center}
+header.header-institucional .header-top>.header-logo:nth-child(2){justify-self:center;object-position:center}
+header.header-institucional .header-top>.header-logo:nth-child(3){justify-self:end;object-position:right center}
+header.header-institucional .header-center{text-align:center}
+header.header-institucional .header-center h1{font-size:clamp(1.05rem,4.2vw,1.45rem);font-weight:700;color:#111;margin:0 0 .3rem;padding:0;line-height:1.25}
+header.header-institucional .header-info{display:flex;justify-content:space-around;align-items:center;flex-wrap:wrap;gap:.3rem 1.5rem;font-size:clamp(.82rem,3.2vw,.95rem);color:#333}
+header.header-institucional .header-emblema{height:clamp(30px,8vw,40px);width:auto;border-radius:4px}
+header.header-institucional .banner-ufcd{background-color:#fdeee6;color:#444;text-align:center;padding:.5rem;font-weight:bold;border-radius:4px;margin:.6rem 0 0;font-size:clamp(.88rem,3.4vw,1rem)}
+@media(max-width:700px){header.header-institucional .header-info{flex-direction:column;gap:.15rem;text-align:center}}
+</style>
 </head>
 <body>
 <!-- CABEÇALHO PADRÃO INSTITUCIONAL -->
